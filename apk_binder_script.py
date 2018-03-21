@@ -50,7 +50,7 @@ def apk_bind(target_apk, bind_apk, class_bind):
     target_dir_smali = os.path.join("tmp", str(random.randint(100000, 999999)))
 
     #Decompilar apk objetivo
-    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", target_apk, target_dir_smali])
+    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", target_apk, "-o", target_dir_smali])
 
     #Obtenemos paquete base del apk objetivo
     target_package = get_package_manifest(os.path.join(target_dir_smali, ANDROID_MANIFEST), target_dir_smali)
@@ -82,7 +82,7 @@ def apk_bind(target_apk, bind_apk, class_bind):
     binder_dir_smali = os.path.join("tmp", str(random.randint(100000, 999999)))
 
     #Decompilar apk binder
-    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", bind_apk, binder_dir_smali])
+    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", bind_apk, "-o", binder_dir_smali])
 
     #Copiamos todos los datos desde el apk a bindear al destino
     print "[+] Copy files from binder to target..."
@@ -98,7 +98,7 @@ def apk_bind(target_apk, bind_apk, class_bind):
     Compiling
     '''
     #Compilar apk bindeado
-    subprocess.call([os.path.join("apktool", apktool_bin), "b", target_dir_smali, "Bind_" + target_package + ".apk" ])
+    subprocess.call([os.path.join("apktool", apktool_bin), "b", target_dir_smali, "-o", "Bind_" + target_package + ".apk" ])
 
     #Eliminamos directorios temporales de trabajo
     shutil.rmtree(target_dir_smali)
@@ -122,7 +122,7 @@ def smali_bind(target_apk, smali_bind):
     target_dir_smali = os.path.join("tmp", str(random.randint(100000, 999999)))
 
     #Decompilar apk objetivo
-    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", target_apk, target_dir_smali])
+    subprocess.call([os.path.join("apktool", apktool_bin), "d", "-f", target_apk, "-o", target_dir_smali])
 
     #Obtenemos paquete base del apk objetivo
     target_package = get_package_manifest(os.path.join(target_dir_smali, ANDROID_MANIFEST), target_dir_smali)
@@ -156,7 +156,7 @@ def smali_bind(target_apk, smali_bind):
     Compiling
     '''
     #Compilar apk bindeado
-    subprocess.call([os.path.join("apktool", apktool_bin), "b", target_dir_smali, "Bind_" + target_package + ".apk" ])
+    subprocess.call([os.path.join("apktool", apktool_bin), "b", target_dir_smali, "-o", "Bind_" + target_package + ".apk" ])
 
     #Eliminamos directorios temporales de trabajo
     shutil.rmtree(target_dir_smali)
