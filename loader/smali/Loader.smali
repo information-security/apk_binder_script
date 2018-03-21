@@ -38,13 +38,12 @@
 
     iput-object v0, p0, Lnet/funsecurity/apk/binder/Loader;->properties:Ljava/util/Properties;
 
-    .line 10
     return-void
 .end method
 
 .method private loadProperties(Ljava/io/InputStream;)V
     .locals 3
-    .parameter "is"
+    .param p1, "is"    # Ljava/io/InputStream;
 
     .prologue
     .line 17
@@ -81,7 +80,7 @@
     move-exception v0
 
     .line 22
-    .local v0, e:Ljava/lang/Exception;
+    .local v0, "e":Ljava/lang/Exception;
     invoke-virtual {v0}, Ljava/lang/Exception;->printStackTrace()V
 
     goto :goto_0
@@ -91,19 +90,19 @@
 # virtual methods
 .method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
     .locals 5
-    .parameter "context"
-    .parameter "arg1"
+    .param p1, "context"    # Landroid/content/Context;
+    .param p2, "arg1"    # Landroid/content/Intent;
 
     .prologue
     .line 29
     const/4 v1, 0x0
 
     .line 30
-    .local v1, intent:Landroid/content/Intent;
+    .local v1, "intent":Landroid/content/Intent;
     const/4 v0, 0x0
 
     .line 33
-    .local v0, classLoad:Ljava/lang/Class;
+    .local v0, "classLoad":Ljava/lang/Class;
     :try_start_0
     invoke-virtual {p1}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
 
@@ -129,11 +128,11 @@
 
     invoke-direct {v2, p1, v0}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
     :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_1
 
     .line 36
-    .end local v1           #intent:Landroid/content/Intent;
-    .local v2, intent:Landroid/content/Intent;
+    .end local v1    # "intent":Landroid/content/Intent;
+    .local v2, "intent":Landroid/content/Intent;
     :try_start_1
     invoke-virtual {v0}, Ljava/lang/Class;->getSuperclass()Ljava/lang/Class;
 
@@ -155,51 +154,45 @@
 
     if-eqz v3, :cond_0
 
-    .line 39
-    const/high16 v3, 0x1080
-
     .line 38
+    const/high16 v3, 0x10800000
+
     invoke-virtual {v2, v3}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
     .line 41
     invoke-virtual {p1, v2}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
 
+    :goto_0
     move-object v1, v2
 
     .line 48
-    .end local v2           #intent:Landroid/content/Intent;
-    .restart local v1       #intent:Landroid/content/Intent;
-    :goto_0
+    .end local v2    # "intent":Landroid/content/Intent;
+    .restart local v1    # "intent":Landroid/content/Intent;
+    :goto_1
     return-void
 
     .line 44
-    .end local v1           #intent:Landroid/content/Intent;
-    .restart local v2       #intent:Landroid/content/Intent;
+    .end local v1    # "intent":Landroid/content/Intent;
+    .restart local v2    # "intent":Landroid/content/Intent;
     :cond_0
     invoke-virtual {p1, v2}, Landroid/content/Context;->startService(Landroid/content/Intent;)Landroid/content/ComponentName;
     :try_end_1
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_1
+    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
 
-    move-object v1, v2
-
-    .line 46
-    .end local v2           #intent:Landroid/content/Intent;
-    .restart local v1       #intent:Landroid/content/Intent;
     goto :goto_0
 
+    .line 46
     :catch_0
     move-exception v3
 
-    goto :goto_0
+    move-object v1, v2
 
-    .end local v1           #intent:Landroid/content/Intent;
-    .restart local v2       #intent:Landroid/content/Intent;
+    .end local v2    # "intent":Landroid/content/Intent;
+    .restart local v1    # "intent":Landroid/content/Intent;
+    goto :goto_1
+
     :catch_1
     move-exception v3
 
-    move-object v1, v2
-
-    .end local v2           #intent:Landroid/content/Intent;
-    .restart local v1       #intent:Landroid/content/Intent;
-    goto :goto_0
+    goto :goto_1
 .end method
